@@ -35,27 +35,19 @@ run-test.bat
 When the bug is present, you should see:
 
 ```
-TEST 1: Scanning with empty root
 Pattern: classpath*:**/*.class
-----------------------------------------------------------------------
-Found: 2 classes
-❌ BUG DETECTED: Too few resources found!
+Found: 2 resources
 
-TEST 2: Scanning with package prefix
 Pattern: classpath*:org/**/*.class
-----------------------------------------------------------------------
-Found: 458 classes
-✓ OK: Package prefix pattern works correctly
+Found: 458 resources
 
-SUMMARY:
-Empty root pattern: 2 resources
-Package prefix pattern: 458 resources
-BUG CONFIRMED!
+FAILED: The numbers should be similar but they are not.
+The empty root pattern is not finding resources from manifest Class-Path entries.
 ```
 
-The test demonstrates that:
-- ❌ `classpath*:**/*.class` finds only ~2 classes (missing dependencies)
-- ✅ `classpath*:org/**/*.class` finds ~450+ classes (works correctly)
+The two patterns should find similar numbers of resources, but they don't:
+- `classpath*:**/*.class` finds only ~2 resources (missing dependencies)
+- `classpath*:org/**/*.class` finds ~450+ resources (includes dependencies)
 
 This proves Spring is rejecting the absolute paths in the manifest `Class-Path` entries.
 
