@@ -16,7 +16,7 @@ public class TestApp {
         System.out.println("Found: " + withPrefix.length + " resources");
         System.out.println();
 
-        if (emptyRoot.length < 100 && withPrefix.length > 100) {
+        if (Math.abs(withPrefix.length - emptyRoot.length) > 10) {
             System.out.println("FAILED: The numbers should be similar but they are not.");
             System.out.println("The empty root pattern is not finding resources from manifest Class-Path entries.");
             System.exit(1);
